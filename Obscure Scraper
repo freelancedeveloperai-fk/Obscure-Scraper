@@ -1,0 +1,41 @@
+#!/bin/bash
+# =================================================================
+#  🔮 Obscure Scraper - Google Maps Lead Scraper & Phone Studio (macOS)
+# =================================================================
+
+clear
+echo "================================================================="
+echo "        🔮 Obscure Scraper - Google Maps Lead Studio             "
+echo "================================================================="
+echo ""
+echo "[*] Initializing Obscure Scraper Engine..."
+
+APP_DIR="/Users/mac/.gemini/antigravity/scratch/gmaps-lead-scraper"
+PYTHON_BIN="/opt/anaconda3/bin/python3"
+
+if [ ! -d "$APP_DIR" ]; then
+    echo "[!] Error: Application directory not found at $APP_DIR"
+    exit 1
+fi
+
+cd "$APP_DIR" || exit 1
+
+# Check if backend server is already running on port 5001
+if ! lsof -i :5001 > /dev/null 2>&1; then
+    echo "[+] Launching Obscure Scraper backend server on http://127.0.0.1:5001..."
+    "$PYTHON_BIN" app.py > /dev/null 2>&1 &
+    sleep 2.5
+else
+    echo "[+] Obscure Scraper backend server is active on http://127.0.0.1:5001"
+fi
+
+echo "[+] Opening Obscure Scraper Dashboard in default browser..."
+open "http://127.0.0.1:5001"
+
+echo ""
+echo "================================================================="
+echo "  ✅ Obscure Scraper is active and running!"
+echo "  🌐 URL: http://127.0.0.1:5001"
+echo ""
+echo "  You can leave this terminal window open while using the software."
+echo "================================================================="
